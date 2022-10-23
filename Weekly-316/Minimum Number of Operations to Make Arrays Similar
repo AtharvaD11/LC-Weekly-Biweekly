@@ -1,0 +1,41 @@
+/*
+Here, the test cases are generated such that nums can always be similar to target. That means the answer always exists.
+This means for each odd/even number in nums there exists an odd/even number in target such that oddNum/evenNum can be converted to oddTar/evenTar.
+
+So, the solution boils down to mapping of odd numbers in nums to odd number of target and mapping of even numbers in nums to even numbers in target and then
+accumulating the abs difference divided by 2 (as we are incrementing/decrementing by 2)
+at the end return sum/2 (as we have to choose 2 elements at a time)
+
+*/
+
+class Solution {
+public:
+    long long makeSimilar(vector<int>& nums, vector<int>& target) {
+        sort(nums.begin(),nums.end());
+        sort(target.begin(),target.end());
+        vector<int> odd1;
+        vector<int> odd2;
+        vector<int> even1;
+        vector<int> even2;
+        for(auto i : nums){
+            if(i&1) odd1.push_back(i);
+            else even1.push_back(i);
+        }
+        for(auto i : target){
+            if(i&1) odd2.push_back(i);
+            else even2.push_back(i);
+        }
+        long long sum = 0;
+        for(int i=0;i<odd1.size();i++){
+            sum += abs(odd1[i] - odd2[i])/2*1ll;
+        }
+        for(int i=0;i<even1.size();i++){
+            sum += abs(even1[i] - even2[i])/2*1ll;
+        }
+        // cout << sum / 2 << endl;
+        return sum/2;
+    }
+};
+
+TC : O(nlog(n))   
+SC : O(n) 
