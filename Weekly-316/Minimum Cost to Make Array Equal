@@ -1,0 +1,56 @@
+Observation
+Think of the cost array as the weight of the corresponding num in the nums array. For example when nums = [1, 3, 5, 2] and cost = [2, 3, 1, 14], suppose we want to 
+increase 1 in nums to 2, we know that the cost for this operation is 2. However, this is equivalent as if there are two 1’s in nums and we increase both of them to 2. 
+Therefore, the minimum total cost such that all the elements of the array nums become equal is equivalent to the minimum total cost such that all the elements of the 
+array
+nums = [1, 1, 3, 3, 3, 5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+become equal, with the cost of doing one operation on each element being 1. As such, the answer to this question is the total cost for moving all elements to the 
+(unweighted) median in the new (collapsed) array. 
+
+Implementation
+We find the weighted median of nums by sorting the (num, weight) pair of the original arrays. We then use the weighted median (target) to calculate the minimum 
+total cost such that all the elements of the array nums becomes equal, which is the answer to this question.
+
+Complexity
+Time Complexity: O(NlogN)
+Space Complexity: O(N), for the use of arr
+
+
+
+
+class Solution {
+public:
+    long long calculate(vector<int>& nums, vector<int>&cost, long long median){
+        long long ans= 0;
+        for(int i=0;i<nums.size();i++){
+            ans = ans + abs(1ll* nums[i]- median) * cost[i];
+        }
+        return ans;
+    }
+    
+    long long minCost(vector<int>& nums, vector<int>& cost) {
+        long long total = 0;
+        long long sum = 0;
+        
+        vector<pair<int,int>> vp;
+        for(int i=0;i<nums.size();i++){
+            vp.push_back({nums[i], cost[i]});
+        }
+        sort(vp.begin(),vp.end());
+        for(int i=0;i<nums.size();i++){
+            sum += 1ll * vp[i].second;
+        }
+        
+        long long median;
+        int i = 0;
+        
+        while(total < (sum+1)/2 && i < nums.size()){
+            total = total + (1ll * vp[i].second);
+            median = vp[i].first;
+            i++;
+        }
+        
+        return calculate(nums, cost, median);
+        
+    }
+};
