@@ -1,0 +1,43 @@
+
+Lets say, nums[i] + c*space = x;
+=> c*space = x - nums[i]   
+This means,    (x-nums[i])%space = 0   (as c is a non-negative number)
+hence,          x%space = nums[i]%space
+
+This means if we choose a number k from our array, then the machine will destroy all the numbers from nums, nums[i] such that nums[i]%space = k%space.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------
+class Solution {
+public:
+    int destroyTargets(vector<int>& nums, int space) {
+        unordered_map<int,int> mp;
+        for(auto i : nums){
+            mp[i%space] ++;
+        }
+        int mini = INT_MAX;
+        int cnt = -1;
+        for(auto i : nums){
+            if(mp[i%space] > cnt){
+                mini = i;
+                cnt = mp[i%space];
+            }
+            else if(cnt == mp[i%space]){
+                mini = min(mini, i);
+            }
+        }
+        return mini;
+    }
+};
