@@ -1,0 +1,7 @@
+Problem Link : https://leetcode.com/contest/weekly-contest-322/problems/minimum-score-of-a-path-between-two-cities/
+
+Intuition:
+As there always exists a path between 1 and n, they belong to same component. So, we just need to calculate minimum path in single component starting from either 1 or n.
+We will simply get minimum edge weight by using DFS/BFS/DSU.
+
+------------------------------------------------------------------------------------------------------
