@@ -1,6 +1,6 @@
 Problem Link : https://leetcode.com/contest/weekly-contest-324/problems/add-edges-to-make-degrees-of-all-nodes-even/
 
-Solutoin :
+Solution :
 
 Intuition<br>
 The number of odd degree node must be even: 0,2,4,...
