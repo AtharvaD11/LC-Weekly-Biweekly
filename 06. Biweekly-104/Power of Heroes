@@ -1,0 +1,41 @@
+Problem Link : https://leetcode.com/contest/biweekly-contest-104/problems/power-of-heroes/
+
+Problem Statement : 
+
+You are given a 0-indexed integer array nums representing the strength of some heroes. The power of a group of heroes is defined as follows:
+
+Let i0, i1, ... ,ik be the indices of the heroes in a group. Then, the power of this group is max(nums[i0], nums[i1], ... ,nums[ik])2 * min(nums[i0], nums[i1], ... ,nums[ik]).
+Return the sum of the power of all non-empty groups of heroes possible. Since the sum could be very large, return it modulo 109 + 7.
+
+
+Solution : 
+
+Somewhat difficult to explain.
+
+Algorithm : 
+
+1) Sort the array.
+2) Fix the ith element as the Max element. So now, all the subsequences that ends at ith, has it as its Max element
+3) The key observation here is that, any element j < i, the jth element occurs 2^(j-i) times as the minimum element.
+
+```
+class Solution {
+public:
+    int sumOfPower(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        int mod = 1e9 + 7;
+        long long sum = 0;
+        long long prev = 0;
+        
+        for(auto i : nums){
+            long long square = (1ll*i%mod * i%mod)%mod;
+            sum = (sum + ((square%mod * i%mod)%mod + (square%mod * prev%mod)%mod)%mod)%mod;
+            prev = ((prev * 2)%mod + i)%mod;
+        }
+        return sum%mod;
+    }
+};
+
+TC : O(nlogn)
+SC : O(1)
+```
