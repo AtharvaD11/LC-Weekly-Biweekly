@@ -3,7 +3,7 @@ Problem Link : https://leetcode.com/contest/weekly-contest-328/problems/count-th
 Solution : 
 
 
-Variation of 'count number of substrings having atleast k distinct charachters'
+Variation of 'count number of substrings having atleast k distinct charachters' <br>
 Link : https://github.com/AtharvaD11/Two-Pointers/blob/main/SET%20B/03.%20CountNumberOfSubstringsHavingAtLeastKDistinctCharacters.md
 
 Code :

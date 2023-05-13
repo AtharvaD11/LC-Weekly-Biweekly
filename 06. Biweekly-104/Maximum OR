@@ -1,0 +1,46 @@
+You are given a 0-indexed integer array nums of length n and an integer k. In an operation, you can choose an element and multiply it by 2.
+
+Return the maximum possible value of nums[0] | nums[1] | ... | nums[n - 1] that can be obtained after applying the operation on nums at most k times.
+
+Note that a | b denotes the bitwise or between two integers a and b.
+
+
+Solution :  Too simple
+
+We need to maximize the total ORed value of the array.
+So, intuitively we can look to maximize any one number's MSB. This will automatically increase the OR of the entire array.
+Now, in at most K operations, we choose individual elements and try to maximize it or in other words
+try to set any numbers  larger bit. Meanwhile, we can keep the track of maximum ORed value.
+
+How to handle the changing OR ?  Too simple : Using prefix and suffix OR arrays.
+
+
+```
+class Solution {
+public:
+    long long maximumOr(vector<int>& nums, int k) {
+        sort(nums.begin(), nums.end());
+        vector<long long> prefix(nums.size() + 1, 0);
+        for(int i=1;i<=nums.size();i++){
+            prefix[i] = prefix[i-1] | 1ll*nums[i-1];
+        }
+        vector<long long> suffix(nums.size() + 1, 0);
+        for(int i=suffix.size()-2;i>=0;i--){
+            suffix[i] = suffix[i+1] | 1ll*nums[i];
+        }
+        long long ans = prefix.back();
+        for(int i=0;i<nums.size();i++){
+            long long num = nums[i];
+            for(int j =1;j<=k;j++){
+                num = num*2*1ll;
+            }
+            long long ored = prefix[i] | suffix[i+1] | num;
+            ans = max(ored, ans);
+        }
+        return ans;
+    }
+};
+
+TC : O(n*k)
+SC : O(n)
+```
